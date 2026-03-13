@@ -1,0 +1,8 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Optional: editor/OS noise
+.idea/
+.vscode/
+

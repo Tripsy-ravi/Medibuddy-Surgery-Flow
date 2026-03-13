@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MediBuddy Surgery Journey — Flow Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f5f0;
+  --ink:#1a1a2e;
+  --ink2:#4a4a6a;
+  --ink3:#9a9ab0;
+  --border:#e0ddd5;
+  --white:#ffffff;
+  --shadow:0 2px 20px rgba(26,26,46,.08);
+  --shadow-lg:0 8px 40px rgba(26,26,46,.14);
+
+  /* Chapter colors */
+  --c1:#2563eb; --c1-lt:#eff6ff; --c1-border:#bfdbfe;
+  --c2:#7c3aed; --c2-lt:#f5f3ff; --c2-border:#ddd6fe;
+  --c3:#0891b2; --c3-lt:#ecfeff; --c3-border:#a5f3fc;
+  --c4:#d97706; --c4-lt:#fffbeb; --c4-border:#fde68a;
+  --c5:#059669; --c5-lt:#ecfdf5; --c5-border:#a7f3d0;
+  --c6:#dc2626; --c6-lt:#fef2f2; --c6-border:#fecaca;
+  --c7:#7c3aed; --c7-lt:#f5f3ff; --c7-border:#ddd6fe;
+
+  /* Status colors */
+  --green:#10b981;--green-lt:#ecfdf5;
+  --red:#ef4444;--red-lt:#fef2f2;
+  --amber:#f59e0b;--amber-lt:#fffbeb;
+  --blue:#3b82f6;--blue-lt:#eff6ff;
+  --purple:#8b5cf6;--purple-lt:#f5f3ff;
+  --teal:#06b6d4;--teal-lt:#ecfeff;
+  --gray:#6b7280;--gray-lt:#f9fafb;
+}
+
+html,body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── Hero ──────────────────────────────── */
+.hero{
+  background:var(--ink);
+  color:#fff;
+  padding:60px 40px 50px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(37,99,235,.35),transparent 70%)}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:16px}
+.hero-title{font-family:'Fraunces',serif;font-size:clamp(32px,5vw,52px);font-weight:900;line-height:1.1;margin-bottom:16px;color:#fff}
+.hero-title em{font-style:italic;color:#93c5fd}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.6);max-width:540px;margin:0 auto 32px;font-weight:300}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.hero-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7)}
+.hero-chip .dot{width:6px;height:6px;border-radius:50%}
+
+/* ── Nav ───────────────────────────────── */
+.sticky-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(247,245,240,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 20px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.sticky-nav::-webkit-scrollbar{display:none}
+.nav-inner{display:flex;gap:2px;min-width:max-content;padding:8px 0}
+.nav-btn{border:none;background:transparent;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink3);transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.nav-btn:hover{background:var(--white);color:var(--ink)}
+.nav-btn.active{background:var(--white);color:var(--ink);box-shadow:var(--shadow)}
+.nav-btn .nav-num{font-size:10px;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff}
+
+/* ── Layout ────────────────────────────── */
+.page{max-width:900px;margin:0 auto;padding:40px 20px 80px}
+
+/* ── Chapter ───────────────────────────── */
+.chapter{margin-bottom:48px;scroll-margin-top:64px}
+.chapter-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.chapter-num-wrap{flex-shrink:0}
+.chapter-num{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:#fff}
+.chapter-meta{}
+.chapter-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
+.chapter-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700;line-height:1.2;color:var(--ink)}
+.chapter-desc{font-size:13px;color:var(--ink2);margin-top:5px;font-weight:400}
+
+/* ── Flow nodes ────────────────────────── */
+.flow{display:flex;flex-direction:column;gap:0}
+
+/* Single node */
+.node{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px 18px;
+  position:relative;
+  box-shadow:var(--shadow);
+  transition:box-shadow .2s;
+}
+.node:hover{box-shadow:var(--shadow-lg)}
+.node-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.node-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.node-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.node-title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.node-body{font-size:13px;color:var(--ink2);margin-top:6px;line-height:1.6}
+.node-team{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:2px 9px;border-radius:20px;margin-bottom:8px}
+
+/* Field list inside node */
+.field-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.field-tag{font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:3px 9px;color:var(--ink2);font-weight:500}
+
+/* Arrow connector */
+.arrow{display:flex;align-items:center;justify-content:center;height:36px;position:relative}
+.arrow::before{content:'';position:absolute;left:50%;top:0;width:2px;height:100%;background:var(--border);transform:translateX(-50%)}
+.arrow-head{position:relative;z-index:1;background:var(--bg);padding:0 8px}
+.arrow-head svg{display:block}
+.arrow-label{position:absolute;left:calc(50% + 12px);top:50%;transform:translateY(-50%);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3);white-space:nowrap}
+
+/* Branch split */
+.branch-split{
+  display:grid;
+  gap:12px;
+  position:relative;
+}
+.branch-split.two{grid-template-columns:1fr 1fr}
+.branch-split.three{grid-template-columns:1fr 1fr 1fr}
+.branch-split.four{grid-template-columns:1fr 1fr 1fr 1fr}
+@media(max-width:640px){
+  .branch-split.two,.branch-split.three,.branch-split.four{grid-template-columns:1fr}
+}
+
+/* Branch connector line */
+.branch-row{position:relative;margin:0}
+.branch-row::before{content:'';position:absolute;top:0;left:50%;width:2px;height:20px;background:var(--border);transform:translateX(-50%)}
+.branch-line{height:1px;background:var(--border);margin:0;position:relative}
+.branch-line::before,.branch-line::after{content:'';position:absolute;top:-3px;width:7px;height:7px;border-radius:50%;background:var(--border)}
+.branch-line::before{left:25%}.branch-line::after{right:25%}
+
+/* Branch label on node */
+.branch-tag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:2px 8px;border-radius:20px;margin-bottom:8px}
+.branch-tag.yes{background:var(--green-lt);color:var(--green)}
+.branch-tag.no{background:var(--red-lt);color:var(--red)}
+.branch-tag.maybe{background:var(--amber-lt);color:var(--amber)}
+.branch-tag.info{background:var(--blue-lt);color:var(--blue)}
+
+/* Outcome node */
+.outcome{
+  border-radius:12px;
+  padding:12px 14px;
+  border:1.5px solid;
+}
+.outcome.green{background:var(--green-lt);border-color:var(--green)}
+.outcome.red{background:var(--red-lt);border-color:var(--red)}
+.outcome.amber{background:var(--amber-lt);border-color:var(--amber)}
+.outcome.blue{background:var(--blue-lt);border-color:var(--blue)}
+.outcome.purple{background:var(--purple-lt);border-color:var(--purple)}
+.outcome.teal{background:var(--teal-lt);border-color:var(--teal)}
+.outcome.gray{background:var(--gray-lt);border-color:var(--gray)}
+.outcome-title{font-size:13px;font-weight:700;color:var(--ink)}
+.outcome-body{font-size:11px;color:var(--ink2);margin-top:3px;line-height:1.5}
+
+/* Email/WA trigger badge */
+.trigger-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.trigger{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+.trigger.email{background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe}
+.trigger.wa{background:#ecfdf5;color:#059669;border:1px solid #a7f3d0}
+.trigger.notif{background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe}
+.trigger.task{background:#fffbeb;color:#d97706;border:1px solid #fde68a}
+.trigger.auto{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+
+/* Divider with label */
+.section-divider{display:flex;align-items:center;gap:12px;margin:32px 0 24px}
+.section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.section-divider-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);white-space:nowrap}
+
+/* "Then" connector between major groups */
+.then-connector{display:flex;flex-direction:column;align-items:center;padding:8px 0;gap:4px}
+.then-line{width:2px;height:24px;background:linear-gradient(to bottom,var(--border),var(--border))}
+.then-dot{width:10px;height:10px;border-radius:50%;background:var(--border)}
+
+/* Grouped decision block */
+.decision-wrap{border:1.5px dashed var(--border);border-radius:16px;padding:16px;margin:4px 0;background:rgba(255,255,255,.5)}
+.decision-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.decision-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Legend */
+.legend{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:36px;box-shadow:var(--shadow)}
+.legend-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:14px}
+.legend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);font-weight:500}
+.legend-swatch{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+
+/* Progress bar at top */
+.chapter-progress{display:flex;gap:4px;margin-bottom:40px}
+.prog-seg{flex:1;height:4px;border-radius:2px;background:var(--border);transition:background .3s}
+.prog-seg.done{background:var(--green)}
+.prog-seg.active{background:var(--blue)}
+
+/* Auto-lost pill */
+.autolost{
+  background:#fef2f2;border:1.5px dashed #fca5a5;border-radius:12px;
+  padding:12px 16px;display:flex;align-items:center;gap:10px;
+  font-size:12px;color:#dc2626;font-weight:600;margin-top:4px;
+}
+
+/* Scroll animation */
+.chapter{opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.chapter.visible{opacity:1;transform:translateY(0)}
+
+/* Print tweaks */
+@media print{.sticky-nav{display:none}.chapter{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">MediBuddy · Surgery Operations</div>
+  <h1 class="hero-title">The <em>Complete Journey</em><br/>of a Surgery Patient</h1>
+  <p class="hero-sub">From the moment a lead arrives to the final discharge — every step, every team, every decision explained simply.</p>
+  <div class="hero-chips">
+    <div class="hero-chip"><span class="dot" style="background:#60a5fa"></span>CareBuddy (CB) Team</div>
+    <div class="hero-chip"><span class="dot" style="background:#34d399"></span>CST / Scheduling Team</div>
+    <div class="hero-chip"><span class="dot" style="background:#f472b6"></span>FinOps Team</div>
+    <div class="hero-chip"><span class="dot" style="background:#fbbf24"></span>Clinical / ClinOps Team</div>
+    <div class="hero-chip"><span class="dot" style="background:#a78bfa"></span>Automated Triggers</div>
+  </div>
+</div>
+
+<!-- Sticky Nav -->
+<div class="sticky-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('ch1')"><span class="nav-num" style="background:#2563eb">1</span>Lead Arrives</button>
+    <button class="nav-btn" onclick="scrollTo('ch2')"><span class="nav-num" style="background:#7c3aed">2</span>First Call</button>
+    <button class="nav-btn" onclick="scrollTo('ch3')"><span class="nav-num" style="background:#0891b2">3</span>OPD Scheduling</button>
+    <button class="nav-btn" onclick="scrollTo('ch4')"><span class="nav-num" style="background:#d97706">4</span>OPD Day</button>
+    <button class="nav-btn" onclick="scrollTo('ch5')"><span class="nav-num" style="background:#059669">5</span>Post OPD & PreAuth</button>
+    <button class="nav-btn" onclick="scrollTo('ch6')"><span class="nav-num" style="background:#dc2626">6</span>Surgery & Discharge</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Chapter progress -->
+  <div class="chapter-progress" id="prog">
+    <div class="prog-seg active"></div>
+    <div class="prog-seg"></div>
+    <div class="prog-seg"></div>
+    <div class="prog-seg"></div>
+    <div class="prog-seg"></div>
+    <div class="prog-seg"></div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-title">How to read this flow</div>
+    <div class="legend-grid">
+      <div class="legend-item"><div class="legend-swatch" style="background:#eff6ff;border:1px solid #bfdbfe">📞</div>An action taken by a team</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#ecfdf5;border:1px solid #a7f3d0">✉️</div>Automatic email trigger</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#ecfdf5;border:1px solid #a7f3d0">💬</div>WhatsApp message sent</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#fef2f2;border:1.5px dashed #fca5a5">🔴</div>Dead-end / Exit point</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#f5f3ff;border:1px solid #ddd6fe">🔔</div>System notification / task</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#fffbeb;border:1.5px dashed #fde68a">⚡</div>Decision / branch point</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- CHAPTER 1: LEAD ARRIVES            -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="chapter" id="ch1">
+    <div class="chapter-header">
+      <div class="chapter-num-wrap">
+        <div class="chapter-num" style="background:#2563eb">1</div>
+      </div>
+      <div class="chapter-meta">
+        <div class="chapter-tag" style="color:#2563eb">Chapter 1</div>
+        <div class="chapter-title">A Patient Arrives</div>
+        <div class="chapter-desc">Someone contacts MediBuddy looking for surgery help. An opportunity is created in the CRM system.</div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="node" style="border-color:#bfdbfe;border-left:4px solid #2563eb">
+        <div class="node-team" style="background:#eff6ff;color:#2563eb">🖥️ System — CRM</div>
+        <div class="node-title">Opportunity is Created</div>
+        <div class="node-body">A new case is opened for the patient. At this stage, only basic info is captured:</div>
+        <div class="field-list">
+          <span class="field-tag">📱 Contact Number</span>
+          <span class="field-tag">👤 Name</span>
+          <span class="field-tag">🏥 Source (where they came from)</span>
+          <span class="field-tag">🏢 Department (for limited cases)</span>
+        </div>
+      </div>
+
+      <div class="arrow">
+        <div class="arrow-head">
+          <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <div class="arrow-label">Next step</div>
+      </div>
+
+      <div class="node" style="border-color:#bfdbfe;border-left:4px solid #2563eb">
+        <div class="node-team" style="background:#eff6ff;color:#2563eb">📋 CareBuddy Team picks it up</div>
+        <div class="node-title">CB Team Is Assigned</div>
+        <div class="node-body">A CareBuddy (CB) agent is assigned to this case. Their job: call the patient, understand their need, and qualify them for surgery through MediBuddy's network.</div>
+      </div>
+    </div>
+
+    <div class="autolost" style="margin-top:16px">
+      ⏱️ <strong>Auto-Lost Rule:</strong> If no action is taken for 15 days at any stage, the lead is automatically marked as "Lost."
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- CHAPTER 2: FIRST CALL              -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="chapter" id="ch2">
+    <div class="chapter-header">
+      <div class="chapter-num-wrap">
+        <div class="chapter-num" style="background:#7c3aed">2</div>
+      </div>
+      <div class="chapter-meta">
+        <div class="chapter-tag" style="color:#7c3aed">Chapter 2</div>
+        <div class="chapter-title">The First Call</div>
+        <div class="chapter-desc">The CB agent calls the patient. What happens next depends on whether the patient picks up — and what they say.</div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="node" style="border-left:4px solid #7c3aed;border-color:#ddd6fe">
+        <div class="node-team" style="background:#f5f3ff;color:#7c3aed">📞 CareBuddy Team</div>
+        <div class="node-title">CB Agent Calls the Patient</div>
+        <div class="node-body">The agent dials the patient for the first time and tries to reach them.</div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <!-- Branch: Connected / Not Connected -->
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ Did the patient answer?</div>
+        <div class="branch-split two">
+
+          <!-- Not Connected -->
+          <div class="outcome amber">
+            <div class="branch-tag maybe">📵 Not Connected</div>
+            <div class="outcome-title">Marked as "Not Connected / RNR"</div>
+            <div class="outcome-body">RNR = Ring No Response. CB will retry up to 3 times. If still no answer after 3 tries, the case pauses for later follow-up.</div>
+          </div>
+
+          <!-- Connected -->
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ Connected</div>
+            <div class="outcome-title">CB Gets Intent & Details</div>
+            <div class="outcome-body">The agent talks to the patient to understand what surgery they need and whether MediBuddy can help.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><div class="arrow-label">If connected</div></div>
+
+      <!-- Interest branch -->
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ Is the patient interested in proceeding?</div>
+        <div class="branch-split two">
+
+          <div class="outcome red">
+            <div class="branch-tag no">❌ Not Interested</div>
+            <div class="outcome-title">Case Saved & Closed</div>
+            <div class="outcome-body">Sub-disposition captured: Not Interested, City not serviceable, Network/surgery not available, Casual browsing, etc. Basic details saved and form closed.</div>
+          </div>
+
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ Interested</div>
+            <div class="outcome-title">Qualified — Case Moves Forward</div>
+            <div class="outcome-body">Patient is marked as <strong>Qualified = Yes</strong> with a timestamp. CB now captures deeper medical details.</div>
+            <div class="field-list" style="margin-top:8px">
+              <span class="field-tag">🏥 Hospital preference</span>
+              <span class="field-tag">👨‍⚕️ Doctor preference</span>
+              <span class="field-tag">📍 Location & Map Link</span>
+              <span class="field-tag">🏢 Sub Department</span>
+              <span class="field-tag">📅 OPD Requested Date</span>
+              <span class="field-tag">🏙️ City, Pin Code</span>
+              <span class="field-tag">👤 Gender, Relationship</span>
+            </div>
+            <div class="trigger-row">
+              <span class="trigger email">✉️ OPD Status → "Yet to be Scheduled"</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><div class="arrow-label">If qualified</div></div>
+
+      <!-- MB Internal decision -->
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ Is this an MB Internal case?</div>
+        <div class="branch-split two">
+
+          <div class="outcome red">
+            <div class="branch-tag no">❌ MB Internal = No</div>
+            <div class="outcome-title">Move to Partner</div>
+            <div class="outcome-body">Case is transferred to a partner hospital outside MediBuddy's direct network. A reason is captured for the transfer.</div>
+          </div>
+
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ MB Internal = Yes</div>
+            <div class="outcome-title">Stays within MediBuddy</div>
+            <div class="outcome-body">Case continues through MediBuddy's own network and scheduling system. Moves to OPD booking.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Special: Sub disposition = surgery/city not serviceable -->
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <div class="node" style="border-left:4px solid #7c3aed;border-color:#ddd6fe">
+        <div class="node-team" style="background:#f5f3ff;color:#7c3aed">⚡ Special Rule</div>
+        <div class="node-title">Surgery / City Not Serviceable?</div>
+        <div class="node-body">If the sub-disposition indicates the patient's city or surgery type cannot be serviced, an automatic email is sent to the Network Team, TL, and CB with basic patient details.</div>
+        <div class="trigger-row">
+          <span class="trigger email">✉️ Email → Network Team, TL, CB</span>
+          <span class="trigger email">✉️ Email → Yarab/Fasi (Name, Sub-Dept, Contact, City, Link)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- CHAPTER 3: OPD SCHEDULING          -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="chapter" id="ch3">
+    <div class="chapter-header">
+      <div class="chapter-num-wrap">
+        <div class="chapter-num" style="background:#0891b2">3</div>
+      </div>
+      <div class="chapter-meta">
+        <div class="chapter-tag" style="color:#0891b2">Chapter 3</div>
+        <div class="chapter-title">Booking the OPD Appointment</div>
+        <div class="chapter-desc">OPD = Out-Patient Department — this is the initial doctor consultation before surgery. The CST (Scheduling) team now takes over to confirm a slot with the hospital.</div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="node" style="border-left:4px solid #0891b2;border-color:#a5f3fc">
+        <div class="node-team" style="background:#ecfeff;color:#0891b2">📅 CST / Scheduling Team</div>
+        <div class="node-title">CST Team Gets Notified</div>
+        <div class="node-body">The CST team sees this case in their Smart View and contacts the hospital to find an available slot for the patient's OPD visit.</div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ Did the hospital confirm a slot?</div>
+        <div class="branch-split two">
+
+          <!-- Slot Not Confirmed -->
+          <div>
+            <div class="outcome red">
+              <div class="branch-tag no">❌ Slot Not Confirmed</div>
+              <div class="outcome-title">Marked as Hospital / Customer Dependency</div>
+              <div class="outcome-body">CST marks OPD Status = "Hospital Dependency" or "Customer Dependency" with a reason.</div>
+            </div>
+            <div style="margin-top:8px">
+              <div class="trigger-row">
+                <span class="trigger email">✉️ Email → CB (Reason + Slot failed)</span>
+              </div>
+              <div style="margin-top:8px;font-size:12px;color:var(--ink2);padding:8px 10px;background:var(--amber-lt);border-radius:8px;border:1px solid var(--amber)">
+                🔁 <strong>CB re-checks with patient</strong> and places a new OPD Requested Date with Status = "Future Dated / Reschedule"
+              </div>
+            </div>
+          </div>
+
+          <!-- Slot Confirmed -->
+          <div>
+            <div class="outcome green">
+              <div class="branch-tag yes">✅ Slot Confirmed</div>
+              <div class="outcome-title">OPD Status = "OPD Fixed"</div>
+              <div class="outcome-body">CST marks the slot as confirmed, adds OPD Confirmed Date. If original doctor isn't available, an external doctor name goes in a separate field.</div>
+            </div>
+            <div style="margin-top:8px">
+              <div class="trigger-row">
+                <span class="trigger email">✉️ Email → Hospital & Patient (OPD Details)</span>
+                <span class="trigger wa">💬 WhatsApp → Patient (OPD Details)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><div class="arrow-label">Once OPD Fixed</div></div>
+
+      <div class="node" style="border-left:4px solid #0891b2;border-color:#a5f3fc">
+        <div class="node-team" style="background:#ecfeff;color:#0891b2">⏰ Automatic Reminders</div>
+        <div class="node-title">Reminder Emails Sent Before OPD</div>
+        <div class="node-body">Two automatic reminder emails go out to keep everyone prepared:</div>
+        <div class="trigger-row" style="margin-top:8px">
+          <span class="trigger email">✉️ Evening before OPD date</span>
+          <span class="trigger email">✉️ Morning of OPD date</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- CHAPTER 4: OPD DAY                 -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="chapter" id="ch4">
+    <div class="chapter-header">
+      <div class="chapter-num-wrap">
+        <div class="chapter-num" style="background:#d97706">4</div>
+      </div>
+      <div class="chapter-meta">
+        <div class="chapter-tag" style="color:#d97706">Chapter 4</div>
+        <div class="chapter-title">The OPD Visit</div>
+        <div class="chapter-desc">The patient visits the doctor. Several outcomes are possible — and each one triggers a different path.</div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="node" style="border-left:4px solid #d97706;border-color:#fde68a">
+        <div class="node-team" style="background:#fffbeb;color:#d97706">📅 Day of OPD</div>
+        <div class="node-title">OPD Status is Updated</div>
+        <div class="node-body">After the OPD visit (or non-visit), the CB team updates the OPD Status to reflect what happened. Several automatic follow-ups also fire during the day:</div>
+        <div class="trigger-row">
+          <span class="trigger wa">💬 WhatsApp to patient 2 hrs after OPD (if Attended)</span>
+          <span class="trigger notif">🔔 IVR call — 3 attempts (if still OPD Fixed status)</span>
+          <span class="trigger email">✉️ Evening feedback email</span>
+          <span class="trigger wa">💬 Evening WhatsApp for status update</span>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--ink3);font-style:italic">If patient replies to IVR or WhatsApp, the status is auto-updated.</div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <!-- OPD Outcomes -->
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ What happened at the OPD? (Pick the outcome)</div>
+        <div class="branch-split three" style="margin-bottom:10px">
+
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ Attended</div>
+            <div class="outcome-title">Patient visited the doctor</div>
+            <div class="outcome-body">CB must now fill 3 mandatory fields:
+              <br/>• Decoding Request (Yes/No)
+              <br/>• Post OPD Status
+              <br/>• Prescription Status + Upload
+            </div>
+          </div>
+
+          <div class="outcome amber">
+            <div class="branch-tag maybe">⏸ No Show</div>
+            <div class="outcome-title">Patient didn't arrive</div>
+            <div class="outcome-body">Sub-reason captured. Case is assessed for reschedule or closure.</div>
+          </div>
+
+          <div class="outcome amber">
+            <div class="branch-tag maybe">🔄 Reschedule</div>
+            <div class="outcome-title">New date needed</div>
+            <div class="outcome-body">Sub-reason captured. A new OPD Requested Date is set.</div>
+          </div>
+        </div>
+
+        <div class="branch-split two">
+          <div class="outcome red">
+            <div class="branch-tag no">❌ Cancelled by Hospital</div>
+            <div class="outcome-title">Hospital cancelled</div>
+            <div class="outcome-body">Sub-reason captured. Cancellation email sent to hospital and patient.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ Cancellation email → Hospital & Patient</span></div>
+          </div>
+
+          <div class="outcome red">
+            <div class="branch-tag no">❌ Cancelled by Patient</div>
+            <div class="outcome-title">Patient cancelled</div>
+            <div class="outcome-body">Sub-reason captured. Cancellation email sent to hospital and patient.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ Cancellation email → Hospital & Patient</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prescription flow for Attended -->
+      <div class="section-divider"><div class="section-divider-label">If Patient Attended → Prescription Flow</div></div>
+
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ Was a prescription uploaded?</div>
+        <div class="branch-split two">
+          <div class="outcome amber">
+            <div class="branch-tag maybe">📄 Not Uploaded</div>
+            <div class="outcome-title">CB reminded to upload</div>
+            <div class="outcome-body">Email sent to CB asking them to upload the prescription.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ Email → CB: Please upload prescription</span></div>
+          </div>
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ Uploaded</div>
+            <div class="outcome-title">Clinical Coordinator Verifies</div>
+            <div class="outcome-body">The CC team reviews the prescription and marks it as Valid, Partial, or Invalid.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><div class="arrow-label">CC reviews prescription</div></div>
+
+      <div class="branch-split four">
+        <div class="outcome green">
+          <div class="outcome-title">✅ Valid</div>
+          <div class="outcome-body">Success email to CB.</div>
+          <div class="trigger-row"><span class="trigger email">✉️ → CB</span></div>
+        </div>
+        <div class="outcome amber">
+          <div class="outcome-title">⚠️ Partial</div>
+          <div class="outcome-body">CB asked to upload full document.</div>
+          <div class="trigger-row"><span class="trigger email">✉️ → CB</span></div>
+        </div>
+        <div class="outcome red">
+          <div class="outcome-title">❌ Invalid</div>
+          <div class="outcome-body">CB asked to re-upload correct file.</div>
+          <div class="trigger-row"><span class="trigger email">✉️ → CB</span></div>
+        </div>
+        <div class="outcome amber">
+          <div class="outcome-title">🔄 CB Re-uploads</div>
+          <div class="outcome-body">Document updated → email sent back to CC team for re-review.</div>
+          <div class="trigger-row"><span class="trigger email">✉️ → CC Team</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- CHAPTER 5: POST OPD                -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="chapter" id="ch5">
+    <div class="chapter-header">
+      <div class="chapter-num-wrap">
+        <div class="chapter-num" style="background:#059669">5</div>
+      </div>
+      <div class="chapter-meta">
+        <div class="chapter-tag" style="color:#059669">Chapter 5</div>
+        <div class="chapter-title">Post OPD, Decoding & Pre-Auth</div>
+        <div class="chapter-desc">After the doctor visit, we find out if surgery is needed — and if insurance needs to be arranged first. FinOps and CB work together here.</div>
+      </div>
+    </div>
+
+    <div class="flow">
+
+      <!-- Post OPD Status -->
+      <div class="node" style="border-left:4px solid #059669;border-color:#a7f3d0">
+        <div class="node-team" style="background:#ecfdf5;color:#059669">📋 CareBuddy Team</div>
+        <div class="node-title">CB Sets Post OPD Status</div>
+        <div class="node-body">Based on what the doctor said, CB selects one of these outcomes:</div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <div class="branch-split three" style="margin-bottom:12px">
+        <div class="outcome blue">
+          <div class="outcome-title">🧪 Tests Required</div>
+          <div class="outcome-body">Name of test and test date captured. Surgery decision pending results.</div>
+        </div>
+        <div class="outcome gray">
+          <div class="outcome-title">💊 Medical Management</div>
+          <div class="outcome-body">No surgery right now — patient needs medication or surgery later. Sub-reasons and timelines captured.</div>
+        </div>
+        <div class="outcome green">
+          <div class="outcome-title">🏥 Surgery Required / Urgent Admission</div>
+          <div class="outcome-body">Surgery needed! IPD Requested Date and Cab Required fields appear. This is the main path forward.</div>
+        </div>
+      </div>
+
+      <div class="section-divider"><div class="section-divider-label">If Surgery Required → Decoding Flow</div></div>
+
+      <!-- Decoding -->
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ Decoding Request — Did the patient request insurance decoding?</div>
+        <div class="branch-split two">
+          <div class="outcome red">
+            <div class="branch-tag no">❌ Decoding = No</div>
+            <div class="outcome-title">Alert sent to CB</div>
+            <div class="outcome-body">Email and notification reminds CB to recheck — decoding is important for insurance claims.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ Email + 🔔 Notification → CB</span></div>
+          </div>
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ Decoding = Yes</div>
+            <div class="outcome-title">FinOps Team Reviews Documents</div>
+            <div class="outcome-body">FinOps sees this in their Smart View and checks if all documents are in order.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><div class="arrow-label">FinOps reviews</div></div>
+
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ Are all documents available?</div>
+        <div class="branch-split two">
+          <div class="outcome red">
+            <div class="branch-tag no">❌ Documents Missing</div>
+            <div class="outcome-title">Decoding Shared = No</div>
+            <div class="outcome-body">CB is notified to check and gather missing documents before decoding can proceed.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ + 🔔 → CB: Check Documents</span></div>
+          </div>
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ All Docs Available</div>
+            <div class="outcome-title">Decoding Shared = Yes</div>
+            <div class="outcome-body">CB is notified to proceed with Pre-Authorization (insurance approval) request.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ + 🔔 → CB: Proceed for PreAuth</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><div class="arrow-label">PreAuth Request option appears in CB section</div></div>
+
+      <!-- PreAuth -->
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ Does the patient want Pre-Authorization (insurance approval)?</div>
+        <div class="branch-split two">
+          <div class="outcome gray">
+            <div class="branch-tag no">❌ PreAuth = No</div>
+            <div class="outcome-title">Reason Captured, Moves to Surgery Scheduling</div>
+            <div class="outcome-body">Patient proceeds without insurance. CB must fill in Tentative Admission Date.</div>
+          </div>
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ PreAuth = Yes</div>
+            <div class="outcome-title">FinOps Handles PreAuth</div>
+            <div class="outcome-body">FinOps team takes over to file and process the insurance pre-authorization with the TPA (Third Party Administrator).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><div class="arrow-label">If PreAuth = Yes</div></div>
+
+      <!-- PreAuth Statuses -->
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ What is the PreAuth status?</div>
+        <div class="branch-split two" style="margin-bottom:10px">
+          <div class="outcome red">
+            <div class="branch-tag no">❌ Rejected</div>
+            <div class="outcome-title">PreAuth Rejected</div>
+            <div class="outcome-body">Email sent to CB with rejection reason. CB discusses options with patient.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ Email → CB (Rejection + Reason)</span></div>
+          </div>
+          <div class="outcome amber">
+            <div class="branch-tag maybe">📋 Pending Docs</div>
+            <div class="outcome-title">Documents Needed from CB</div>
+            <div class="outcome-body">CB is asked to upload or modify required insurance documents.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ Email → CB (Action on Docs)</span></div>
+          </div>
+        </div>
+        <div class="branch-split two">
+          <div class="outcome blue">
+            <div class="branch-tag info">📤 Filed / Under Process</div>
+            <div class="outcome-title">PreAuth Filed with Hospital / TPA</div>
+            <div class="outcome-body">Waiting for TPA response. CB gets update email. If surgery is 3+ days away, a patience email is sent.</div>
+            <div class="trigger-row">
+              <span class="trigger email">✉️ Update → CB & Patient</span>
+              <span class="trigger email">✉️ "Have patience" email if surgery &gt;3 days away</span>
+            </div>
+          </div>
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ Approved</div>
+            <div class="outcome-title">PreAuth Approved!</div>
+            <div class="outcome-body">CB and patient are notified. IPD Requested Date and Cab Required fields appear in CB section. Surgery can now be scheduled.</div>
+            <div class="trigger-row">
+              <span class="trigger email">✉️ Approval email → CB & Patient</span>
+              <span class="trigger email">✉️ Reminder evening before surgery</span>
+              <span class="trigger email">✉️ Reminder morning of surgery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- CHAPTER 6: SURGERY & DISCHARGE     -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="chapter" id="ch6">
+    <div class="chapter-header">
+      <div class="chapter-num-wrap">
+        <div class="chapter-num" style="background:#dc2626">6</div>
+      </div>
+      <div class="chapter-meta">
+        <div class="chapter-tag" style="color:#dc2626">Chapter 6</div>
+        <div class="chapter-title">Surgery, Admission & Discharge</div>
+        <div class="chapter-desc">The final stretch — scheduling the surgery, patient admission, the procedure itself, and post-surgery care.</div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="node" style="border-left:4px solid #dc2626;border-color:#fecaca">
+        <div class="node-team" style="background:#fef2f2;color:#dc2626">🏥 Surgery Scheduling</div>
+        <div class="node-title">Surgery Status = "Yet to Schedule"</div>
+        <div class="node-body">CB fills the IPD (In-Patient Department) Requested Date. This triggers the CST team to confirm the actual surgery date with the hospital.</div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <div class="node" style="border-left:4px solid #0891b2;border-color:#a5f3fc">
+        <div class="node-team" style="background:#ecfeff;color:#0891b2">📅 CST Team</div>
+        <div class="node-title">CST Confirms IPD Date</div>
+        <div class="node-body">Surgery Status → "IPD Scheduled" with a nested status: Future Dated, Back Dated, or Same Day.</div>
+        <div class="trigger-row">
+          <span class="trigger email">✉️ IPD Email → Hospital, Clinical Team & CB</span>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <!-- Surgery reschedule branches -->
+      <div class="decision-wrap">
+        <div class="decision-label">⚡ Does the surgery go ahead as planned?</div>
+
+        <div class="branch-split two" style="margin-bottom:10px">
+          <div class="outcome amber">
+            <div class="branch-tag maybe">🔄 Rescheduled by Hospital</div>
+            <div class="outcome-title">Hospital changed the date</div>
+            <div class="outcome-body">Reasons: Lens Unavailable, Room Issues, Doc Unavailable, Equipment/OT unavailable, Patient Denied Advance, Hospital not planned surgery.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ Internal email → CB, TLs, Clinical Coordinators, CST</span></div>
+          </div>
+          <div class="outcome amber">
+            <div class="branch-tag maybe">🔄 Rescheduled by Patient</div>
+            <div class="outcome-title">Patient changed the date</div>
+            <div class="outcome-body">Reasons: Not Available, Not Ready, Cash Issues, Vitals Out of Range, Second Opinion, Health Issues, Fitness Pending, etc.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ Internal email → CB, TLs, Clinical Coordinators, CST</span></div>
+          </div>
+        </div>
+
+        <div class="branch-split two">
+          <div class="outcome red">
+            <div class="branch-tag no">❌ Surgery Cancelled</div>
+            <div class="outcome-title">Surgery will not happen</div>
+            <div class="outcome-body">PreAuth status goes blank. Case is reviewed for closure or alternate path.</div>
+          </div>
+          <div class="outcome green">
+            <div class="branch-tag yes">✅ Surgery Proceeds</div>
+            <div class="outcome-title">Patient is Admitted</div>
+            <div class="outcome-body">ClinOps team is notified in their view. They update Admission Status and Patient Admission Date.</div>
+            <div class="trigger-row"><span class="trigger email">✉️ Email → Patient (All details) CC: CST, CB</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><div class="arrow-label">Surgery complete</div></div>
+
+      <!-- Post Surgery -->
+      <div class="node" style="border-left:4px solid #059669;border-color:#a7f3d0">
+        <div class="node-team" style="background:#ecfdf5;color:#059669">🏥 FinOps Team</div>
+        <div class="node-title">Discharge & Settlement</div>
+        <div class="node-body">FinOps receives the case and fills in all financial details:</div>
+        <div class="field-list">
+          <span class="field-tag">📅 Discharge Date</span>
+          <span class="field-tag">💰 Settlement Amount</span>
+          <span class="field-tag">🧾 Bill Amount</span>
+        </div>
+        <div class="trigger-row">
+          <span class="trigger email">✉️ Email → Hospital (Final amounts)</span>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <div class="node" style="border-left:4px solid #059669;border-color:#a7f3d0">
+        <div class="node-team" style="background:#ecfdf5;color:#059669">📱 ClinOps + System</div>
+        <div class="node-title">Order Created & Thank You</div>
+        <div class="node-body">ClinOps enters Discharge Date. The system creates an order in the MediBuddy app and sends a thank you email to the patient.</div>
+        <div class="trigger-row">
+          <span class="trigger email">✉️ Thank You email → Patient</span>
+          <span class="trigger wa">💬 Feedback + Play Store / App Store link → Patient</span>
+        </div>
+      </div>
+
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <div class="node" style="border-left:4px solid #7c3aed;border-color:#ddd6fe">
+        <div class="node-team" style="background:#f5f3ff;color:#7c3aed">🔔 Post-Surgery Follow-Up (Automated)</div>
+        <div class="node-title">7-Day Follow-Up Program</div>
+        <div class="node-body">Two follow-up tasks are automatically created for the Clinical Coordinators:</div>
+        <div class="field-list">
+          <span class="field-tag">📅 Day 3 — Follow-up call with patient</span>
+          <span class="field-tag">📅 Day 7 — Follow-up call with patient</span>
+        </div>
+        <div class="trigger-row" style="margin-top:10px">
+          <span class="trigger wa">💬 Day 3 WhatsApp message sent automatically</span>
+          <span class="trigger wa">💬 Day 7 WhatsApp message sent automatically</span>
+          <span class="trigger auto">⚡ Status auto-updates to "Follow-up Provided" regardless of patient reply</span>
+        </div>
+      </div>
+
+      <!-- Final outcome -->
+      <div class="arrow"><div class="arrow-head"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0v10M2 6l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div>
+
+      <div class="node" style="border:2px solid var(--green);background:var(--green-lt)">
+        <div style="font-size:24px;margin-bottom:8px">🎉</div>
+        <div class="node-title" style="color:var(--green);font-size:18px">Journey Complete!</div>
+        <div class="node-body">The patient has successfully undergone surgery through MediBuddy's network. The case is fully closed with all follow-ups completed.</div>
+      </div>
+    </div>
+
+    <!-- P0 note -->
+    <div style="margin-top:16px;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:14px 16px;font-size:12px;color:#7c3aed">
+      <strong>📌 Note (P0 Priority Cases Only):</strong> For high-priority cases, an internal email with full reschedule reasons goes to CB, TLs, Clinical Coordinators, and the CST team upon any reschedule event.
+    </div>
+  </div>
+
+  <!-- Auto-Lost Summary -->
+  <div style="background:var(--ink);color:#fff;border-radius:16px;padding:24px;margin-top:32px">
+    <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin-bottom:12px">⏱️ Global Auto-Lost Rule</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7">
+      At <strong style="color:#fff">every stage</strong> of this journey, if a lead has had <strong style="color:#fbbf24">no action for 15 days</strong>, the system automatically marks it as <strong style="color:#f87171">Lost</strong>. This applies from the very first call stage all the way to the post-surgery stage. Additionally, for P0 cases specifically, if a case is in "OPD Fixed" status and 7 days pass without update, it is also marked as Lost.
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Scroll to chapter
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Intersection observer for chapter visibility + progress
+const chapters = document.querySelectorAll('.chapter');
+const navBtns  = document.querySelectorAll('.nav-btn');
+const progSegs = document.querySelectorAll('.prog-seg');
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      const idx = Array.from(chapters).indexOf(entry.target);
+      navBtns.forEach((b,i) => b.classList.toggle('active', i === idx));
+      progSegs.forEach((s,i) => {
+        s.classList.remove('done','active');
+        if (i < idx) s.classList.add('done');
+        if (i === idx) s.classList.add('active');
+      });
+    }
+  });
+}, { threshold: 0.15, rootMargin: '-60px 0px 0px 0px' });
+
+chapters.forEach(c => obs.observe(c));
+</script>
+</body>
+</html>
