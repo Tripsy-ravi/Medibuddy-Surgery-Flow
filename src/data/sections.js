@@ -40,7 +40,8 @@ export const sections = [
           "Configurable deduplication and lead ownership rules",
           "Four-form architecture with intelligent auto-fill",
           "End-to-end visibility across CareBuddy, CST, Clinical Coordinator, Scheduling, and FinOps",
-          "Automated reporting with hierarchy roll-up and category filters"
+          "Automated reporting with hierarchy roll-up and category filters",
+          "CRM data available for internal data lake or preferred connector"
         ]
       },
       {
@@ -49,6 +50,87 @@ export const sections = [
         title: "Scope Guardrails",
         content:
           "This BRD focuses on Surgery. Additional workflows for Dental or other treatment types will be handled in a follow-on versions."
+      }
+    ]
+  },
+  {
+    id: "program-snapshot",
+    eyebrow: "Snapshot",
+    title: "Program Snapshot (From SoW)",
+    summary:
+      "Key commercial and program facts to align expectations and leadership context.",
+    blocks: [
+      {
+        type: "list",
+        title: "Key Facts",
+        items: [
+          "Business model: B2C healthcare journeys (OPD, IPD, surgeries)",
+          "Operating footprint: Pan‑India (HQ: Bengaluru)",
+          "Seats at go‑live: 350",
+          "Current tools being replaced: LeadSquared, Convin",
+          "Target go‑live date: 5 May 2026",
+          "Executive sponsor: Diwanshu Agarwal (Director – Category & Sales)",
+          "Day‑to‑day PoC: Suman Joshi (Group Manager – Sales Ops, Surgery)"
+        ]
+      }
+    ]
+  },
+  {
+    id: "pain-points",
+    eyebrow: "Pain Points",
+    title: "What’s Broken Today & How Superleap Solves It",
+    summary:
+      "Pain points captured in the SoW are addressed directly in the CRM design and implementation.",
+    blocks: [
+      {
+        type: "cards",
+        title: "Pain Point → Superleap Response",
+        items: [
+          {
+            title: "Fragmented opportunity management (Retool dependency)",
+            description:
+              "Superleap centralizes opportunity workflows with native forms, smart views, and configurable rules."
+          },
+          {
+            title: "Manual coordination across teams",
+            description:
+              "Team-specific forms and task automation ensure clean handoffs with clear ownership and timelines."
+          },
+          {
+            title: "Limited reporting and system visibility",
+            description:
+              "Automated dashboards, hierarchy roll-ups, and category filters provide leadership-level visibility."
+          },
+          {
+            title: "System speed and ease of use",
+            description:
+              "Streamlined UI, fewer conditional fields, and focused workflows improve usability for large teams."
+          },
+          {
+            title: "Call analysis limited by external tools (Convin cap)",
+            description:
+              "Superleap Voice AI and call analytics unify insights and remove external tool dependency."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "success-criteria",
+    eyebrow: "Success",
+    title: "Definition of Success",
+    summary:
+      "The engagement is successful when leadership gains real-time visibility and teams ramp faster.",
+    blocks: [
+      {
+        type: "list",
+        title: "Success Outcomes",
+        items: [
+          "AI-native CRM with business-level visibility into ground operations",
+          "Detailed Voice AI reports and analytics for call quality and insights",
+          "Reduced ramp-up time for new agents (currently ~3 months)",
+          "CRM data available for internal data lake or preferred connector"
+        ]
       }
     ]
   },
