@@ -1,0 +1,125 @@
+/* Base styles for the BRD site. */
+:root {
+  --bg: #f5f6fb;
+  --ink: #0b0f1a;
+  --ink-soft: #3b4253;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --border: #e2e6f3;
+  --accent: #4d65ff;
+  --accent-soft: #eef1ff;
+  --accent-2: #006969;
+  --accent-2-soft: #e5f7f5;
+  --accent-3: #101827;
+  --accent-3-soft: #eef2f7;
+  --shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
+  --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.08);
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  --max-width: 1120px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at 10% 10%, #e9ecff, transparent 42%),
+    radial-gradient(circle at 80% 0%, #e5f7f5, transparent 45%),
+    var(--bg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+section {
+  scroll-margin-top: 120px;
+}
+
+.container {
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.h1,
+.h2,
+.h3 {
+  font-family: "Sora", "Plus Jakarta Sans", sans-serif;
+  color: var(--ink);
+}
+
+.h1 {
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  line-height: 1.05;
+}
+
+.h2 {
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  line-height: 1.2;
+}
+
+.h3 {
+  font-size: 1.2rem;
+}
+
+.subtext {
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  html {
+    font-size: 14px;
+  }
+}

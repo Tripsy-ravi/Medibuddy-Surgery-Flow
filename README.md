@@ -1,23 +1,41 @@
-# Medibuddy Surgery Flow (Static)
+# MediBuddy × Superleap BRD (React)
 
-This repo contains a single-page static HTML flow guide in `Medibuddy-Surgery-Flow/index.html`.
+This repo hosts a React-based Business Requirements Document site for the MediBuddy Surgery CRM engagement.
 
-## Run locally
-
-- Open `Medibuddy-Surgery-Flow/index.html` directly in a browser, or
-- Serve it (recommended):
+## Quick Start
 
 ```bash
-cd Medibuddy-Surgery-Flow
-python3 -m http.server 5173
+npm install
+npm run dev
 ```
 
 Then open `http://localhost:5173`.
 
-## Deploy to Netlify
+## Build
 
-- **Build command**: none
-- **Publish directory**: `Medibuddy-Surgery-Flow`
+```bash
+npm run build
+npm run preview
+```
 
-This is also configured in `netlify.toml`, so Netlify should auto-detect it after you connect the GitHub repo.
+## Project Structure
 
+- `index.html` — App shell + font links
+- `src/App.jsx` — Main layout and section assembly
+- `src/data/` — All BRD content (edit here for updates)
+- `src/components/` — Reusable UI building blocks
+- `src/styles/` — Global + component CSS
+- `public/assets/` — Diagrams and reference files
+
+## Content Updates
+
+- Add or reorder BRD sections in `src/data/sections.js`.
+- Update object architecture in `src/data/objectArchitecture.js`.
+- Update journey flow and diagrams in `src/data/workflows.js`.
+
+## Deployment (Netlify)
+
+Build command: `npm run build`  
+Publish directory: `dist`
+
+The Netlify configuration is already set in `netlify.toml`.

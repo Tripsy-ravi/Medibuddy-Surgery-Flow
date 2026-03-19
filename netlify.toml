@@ -1,4 +1,3 @@
 [build]
-  publish = "Medibuddy-Surgery-Flow"
-  command = ""
-
+  publish = "dist"
+  command = "npm run build"
